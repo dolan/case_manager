@@ -1,0 +1,2 @@
+class GroupRoleAssignment < ApplicationRecord
+end

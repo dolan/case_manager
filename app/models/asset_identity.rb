@@ -1,0 +1,2 @@
+class AssetIdentity < ApplicationRecord
+end

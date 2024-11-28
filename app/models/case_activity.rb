@@ -1,0 +1,2 @@
+class CaseActivity < ApplicationRecord
+end
