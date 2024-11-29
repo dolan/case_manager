@@ -1,4 +1,4 @@
-require "#{Rails.root}/app/services/constants/permissions"
+require "#{Rails.root}/app/services/constants"
 
 module Tasks
   module Permissions

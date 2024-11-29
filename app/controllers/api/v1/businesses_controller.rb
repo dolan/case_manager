@@ -5,21 +5,21 @@ module Api
 
       def index
         @businesses = ::Business.all
-        render json: V1::BusinessResource.new(@businesses)
+        render json: ::V1::BusinessResource.new(@businesses)
       end
 
       def show
-        render json: V1::BusinessResource.new(@business)
+        render json: ::V1::BusinessResource.new(@business)
       end
 
       def create
         @business = ::Business.create!(business_params)
-        render json: V1::BusinessResource.new(@business), status: :created
+        render json: ::V1::BusinessResource.new(@business), status: :created
       end
 
       def update
         @business.update!(business_params)
-        render json: V1::BusinessResource.new(@business)
+        render json: ::V1::BusinessResource.new(@business)
       end
 
       def destroy

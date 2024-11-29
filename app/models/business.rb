@@ -1,4 +1,4 @@
-class Buisness < ApplicationRecord
+class Business < ApplicationRecord
   include HasUuid
 
   # TODO: Should this be optional?

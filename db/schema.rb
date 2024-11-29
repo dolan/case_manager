@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_29_141751) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_29_184603) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -56,26 +56,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_29_141751) do
     t.index ["uuid"], name: "index_assets_on_uuid"
   end
 
-  create_table "buisnesses", force: :cascade do |t|
-    t.uuid "uuid"
-    t.string "category"
-    t.string "name"
-    t.string "description"
-    t.bigint "primary_location_id"
-    t.string "brand_identifier"
-    t.json "metadata"
-    t.bigint "created_by_user_id"
-    t.bigint "updated_by_user_id"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["category"], name: "index_buisnesses_on_category"
-    t.index ["created_by_user_id"], name: "index_buisnesses_on_created_by_user_id"
-    t.index ["name"], name: "index_buisnesses_on_name"
-    t.index ["updated_by_user_id"], name: "index_buisnesses_on_updated_by_user_id"
-    t.index ["uuid"], name: "index_buisnesses_on_uuid"
-  end
-
   create_table "business_locations", force: :cascade do |t|
     t.uuid "uuid"
     t.bigint "business_id"
@@ -91,6 +71,26 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_29_141751) do
     t.index ["location_id"], name: "index_business_locations_on_location_id"
     t.index ["name"], name: "index_business_locations_on_name"
     t.index ["uuid"], name: "index_business_locations_on_uuid"
+  end
+
+  create_table "businesses", force: :cascade do |t|
+    t.uuid "uuid"
+    t.string "category"
+    t.string "name"
+    t.string "description"
+    t.bigint "primary_location_id"
+    t.string "brand_identifier"
+    t.json "metadata"
+    t.bigint "created_by_user_id"
+    t.bigint "updated_by_user_id"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_businesses_on_category"
+    t.index ["created_by_user_id"], name: "index_businesses_on_created_by_user_id"
+    t.index ["name"], name: "index_businesses_on_name"
+    t.index ["updated_by_user_id"], name: "index_businesses_on_updated_by_user_id"
+    t.index ["uuid"], name: "index_businesses_on_uuid"
   end
 
   create_table "case_activities", force: :cascade do |t|
