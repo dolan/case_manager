@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_29_123742) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_29_140743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "api_keys", force: :cascade do |t|
+    t.string "key"
+    t.bigint "user_id", null: false
+    t.boolean "active"
+    t.datetime "last_used_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_api_keys_on_user_id"
+  end
 
   create_table "asset_identities", force: :cascade do |t|
     t.uuid "uuid"
@@ -211,6 +221,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_29_123742) do
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "business_id"
+    t.index ["business_id"], name: "index_group_role_assignments_on_business_id"
     t.index ["created_by_user_id"], name: "index_group_role_assignments_on_created_by_user_id"
     t.index ["group_id"], name: "index_group_role_assignments_on_group_id"
     t.index ["security_role_id"], name: "index_group_role_assignments_on_security_role_id"
@@ -320,6 +332,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_29_123742) do
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "business_id"
+    t.index ["business_id"], name: "index_user_role_assignments_on_business_id"
     t.index ["created_by_user_id"], name: "index_user_role_assignments_on_created_by_user_id"
     t.index ["security_role_id"], name: "index_user_role_assignments_on_security_role_id"
     t.index ["user_id"], name: "index_user_role_assignments_on_user_id"
@@ -351,4 +365,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_29_123742) do
     t.index ["updated_by_user_id"], name: "index_users_on_updated_by_user_id"
     t.index ["uuid"], name: "index_users_on_uuid"
   end
+
+  add_foreign_key "api_keys", "users"
 end

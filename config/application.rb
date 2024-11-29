@@ -12,6 +12,9 @@ require "action_mailbox/engine"
 require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
+
+# Add API authentication middleware
+require_relative "../app/middleware/api_authentication"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -38,5 +41,8 @@ module CaseManager
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Add API authentication middleware
+    config.middleware.use ApiAuthentication
   end
 end

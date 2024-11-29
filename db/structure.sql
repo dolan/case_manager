@@ -21,6 +21,40 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: api_keys; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.api_keys (
+    id bigint NOT NULL,
+    key character varying,
+    user_id bigint NOT NULL,
+    active boolean,
+    last_used_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: api_keys_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.api_keys_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: api_keys_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.api_keys_id_seq OWNED BY public.api_keys.id;
+
+
+--
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -409,7 +443,8 @@ CREATE TABLE public.group_role_assignments (
     created_by_user_id bigint,
     discarded_at timestamp(6) without time zone,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    business_id bigint
 );
 
 
@@ -673,7 +708,8 @@ CREATE TABLE public.user_role_assignments (
     created_by_user_id bigint,
     discarded_at timestamp(6) without time zone,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    business_id bigint
 );
 
 
@@ -741,6 +777,13 @@ CREATE SEQUENCE public.users_id_seq
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: api_keys id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.api_keys ALTER COLUMN id SET DEFAULT nextval('public.api_keys_id_seq'::regclass);
 
 
 --
@@ -867,6 +910,14 @@ ALTER TABLE ONLY public.user_role_assignments ALTER COLUMN id SET DEFAULT nextva
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: api_keys api_keys_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.api_keys
+    ADD CONSTRAINT api_keys_pkey PRIMARY KEY (id);
 
 
 --
@@ -1027,6 +1078,13 @@ ALTER TABLE ONLY public.user_role_assignments
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_api_keys_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_api_keys_on_user_id ON public.api_keys USING btree (user_id);
 
 
 --
@@ -1373,6 +1431,13 @@ CREATE INDEX index_customers_on_uuid ON public.customers USING btree (uuid);
 
 
 --
+-- Name: index_group_role_assignments_on_business_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_group_role_assignments_on_business_id ON public.group_role_assignments USING btree (business_id);
+
+
+--
 -- Name: index_group_role_assignments_on_created_by_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1576,6 +1641,13 @@ CREATE INDEX index_user_group_memberships_on_uuid ON public.user_group_membershi
 
 
 --
+-- Name: index_user_role_assignments_on_business_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_role_assignments_on_business_id ON public.user_role_assignments USING btree (business_id);
+
+
+--
 -- Name: index_user_role_assignments_on_created_by_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1629,6 +1701,14 @@ CREATE INDEX index_users_on_updated_by_user_id ON public.users USING btree (upda
 --
 
 CREATE INDEX index_users_on_uuid ON public.users USING btree (uuid);
+
+
+--
+-- Name: api_keys fk_rails_32c28d0dc2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.api_keys
+    ADD CONSTRAINT fk_rails_32c28d0dc2 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
