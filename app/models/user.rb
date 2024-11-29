@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_many :user_group_memberships
-  has_many :groups, through: :user_group_memberships
+  # has_many :groups, through: :user_group_memberships
   has_many :user_role_assignments
-  has_many :user_roles, through: :user_role_assignments
+  # has_many :user_roles, through: :user_role_assignments
   has_many :security_role_permissions, through: :user_roles
 
   has_many :assigned_cases, class_name: "Case", foreign_key: "assigned_to_user_id"

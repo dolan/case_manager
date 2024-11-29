@@ -4,7 +4,10 @@ class Case < ApplicationRecord
   belongs_to :bill_to_customer, class_name: "Customer"
   belongs_to :ship_to_customer, class_name: "Customer"
   belongs_to :service_provider_business_location, class_name: "BusinessLocation"
-  belongs_to :service_provider_business, through: :service_provider_business_location
+
+  has_one :business, through: :service_provider_business_location
+  alias_attribute :service_provider_business, :business
+
   belongs_to :assigned_to_user, class_name: "User"
   has_many :case_items
   has_one :case_total

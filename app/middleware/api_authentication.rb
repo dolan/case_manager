@@ -8,6 +8,8 @@ class ApiAuthentication
     request = ActionDispatch::Request.new(env)
     auth_header = request.headers["Authorization"]
 
+    Rails.logger.info("API Authentication: #{auth_header}")
+
     if auth_header&.start_with?("Bearer ")
       token = auth_header.split(" ").last
       if user = authenticate_request(token)
