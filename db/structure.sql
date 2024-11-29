@@ -756,7 +756,9 @@ CREATE TABLE public.users (
     created_by_user_id bigint,
     updated_by_user_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    first_name character varying,
+    last_name character varying
 );
 
 
@@ -1687,6 +1689,13 @@ CREATE INDEX index_users_on_created_by_user_id ON public.users USING btree (crea
 --
 
 CREATE INDEX index_users_on_email ON public.users USING btree (email);
+
+
+--
+-- Name: index_users_on_last_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_last_name ON public.users USING btree (last_name);
 
 
 --
