@@ -1,19 +1,19 @@
 FactoryBot.define do
   factory :location do
-    uuid { "" }
-    name { "MyString" }
-    description { "MyString" }
-    address_line_1 { "MyString" }
-    address_line_2 { "MyString" }
-    address_line_3 { "MyString" }
-    city { "MyString" }
-    geographical_region { "MyString" }
-    country_iso_code { "MyString" }
-    timezone { "MyString" }
-    culture { "MyString" }
-    metadata { "" }
-    created_by_user_id { "" }
-    updated_by_user_id { "MyString" }
-    discarded_at { "2024-11-28 10:49:05" }
+    uuid { SecureRandom.uuid }
+    name { Faker::Address.street_address }
+    description { Faker::Lorem.sentence }
+    address_line_1 { Faker::Address.street_address }
+    address_line_2 { Faker::Address.secondary_address }
+    address_line_3 { Faker::Address.community }
+    city { Faker::Address.city }
+    geographical_region { Faker::Address.state }
+    country_iso_code { Faker::Address.country_code }
+    timezone { Faker::Address.time_zone }
+    culture { Faker::Address.locale }
+    metadata { {} }
+    association :created_by_user, factory: :user
+    association :updated_by_user, factory: :user
+    discarded_at { nil }
   end
 end

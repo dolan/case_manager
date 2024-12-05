@@ -142,46 +142,6 @@ ALTER SEQUENCE public.assets_id_seq OWNED BY public.assets.id;
 
 
 --
--- Name: buisnesses; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.buisnesses (
-    id bigint NOT NULL,
-    uuid uuid,
-    category character varying,
-    name character varying,
-    description character varying,
-    primary_location_id bigint,
-    brand_identifier character varying,
-    metadata json,
-    created_by_user_id bigint,
-    updated_by_user_id bigint,
-    discarded_at timestamp(6) without time zone,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: buisnesses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.buisnesses_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: buisnesses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.buisnesses_id_seq OWNED BY public.buisnesses.id;
-
-
---
 -- Name: business_locations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -216,6 +176,46 @@ CREATE SEQUENCE public.business_locations_id_seq
 --
 
 ALTER SEQUENCE public.business_locations_id_seq OWNED BY public.business_locations.id;
+
+
+--
+-- Name: businesses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.businesses (
+    id bigint NOT NULL,
+    uuid uuid,
+    category character varying,
+    name character varying,
+    description character varying,
+    primary_location_id bigint,
+    brand_identifier character varying,
+    metadata json,
+    created_by_user_id bigint,
+    updated_by_user_id bigint,
+    discarded_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: businesses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.businesses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: businesses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.businesses_id_seq OWNED BY public.businesses.id;
 
 
 --
@@ -803,17 +803,17 @@ ALTER TABLE ONLY public.assets ALTER COLUMN id SET DEFAULT nextval('public.asset
 
 
 --
--- Name: buisnesses id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.buisnesses ALTER COLUMN id SET DEFAULT nextval('public.buisnesses_id_seq'::regclass);
-
-
---
 -- Name: business_locations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.business_locations ALTER COLUMN id SET DEFAULT nextval('public.business_locations_id_seq'::regclass);
+
+
+--
+-- Name: businesses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.businesses ALTER COLUMN id SET DEFAULT nextval('public.businesses_id_seq'::regclass);
 
 
 --
@@ -947,19 +947,19 @@ ALTER TABLE ONLY public.assets
 
 
 --
--- Name: buisnesses buisnesses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.buisnesses
-    ADD CONSTRAINT buisnesses_pkey PRIMARY KEY (id);
-
-
---
 -- Name: business_locations business_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.business_locations
     ADD CONSTRAINT business_locations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: businesses businesses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.businesses
+    ADD CONSTRAINT businesses_pkey PRIMARY KEY (id);
 
 
 --
@@ -1139,41 +1139,6 @@ CREATE INDEX index_assets_on_uuid ON public.assets USING btree (uuid);
 
 
 --
--- Name: index_buisnesses_on_category; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_buisnesses_on_category ON public.buisnesses USING btree (category);
-
-
---
--- Name: index_buisnesses_on_created_by_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_buisnesses_on_created_by_user_id ON public.buisnesses USING btree (created_by_user_id);
-
-
---
--- Name: index_buisnesses_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_buisnesses_on_name ON public.buisnesses USING btree (name);
-
-
---
--- Name: index_buisnesses_on_updated_by_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_buisnesses_on_updated_by_user_id ON public.buisnesses USING btree (updated_by_user_id);
-
-
---
--- Name: index_buisnesses_on_uuid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_buisnesses_on_uuid ON public.buisnesses USING btree (uuid);
-
-
---
 -- Name: index_business_locations_on_business_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1206,6 +1171,41 @@ CREATE INDEX index_business_locations_on_name ON public.business_locations USING
 --
 
 CREATE INDEX index_business_locations_on_uuid ON public.business_locations USING btree (uuid);
+
+
+--
+-- Name: index_businesses_on_category; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_businesses_on_category ON public.businesses USING btree (category);
+
+
+--
+-- Name: index_businesses_on_created_by_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_businesses_on_created_by_user_id ON public.businesses USING btree (created_by_user_id);
+
+
+--
+-- Name: index_businesses_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_businesses_on_name ON public.businesses USING btree (name);
+
+
+--
+-- Name: index_businesses_on_updated_by_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_businesses_on_updated_by_user_id ON public.businesses USING btree (updated_by_user_id);
+
+
+--
+-- Name: index_businesses_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_businesses_on_uuid ON public.businesses USING btree (uuid);
 
 
 --

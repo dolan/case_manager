@@ -1,14 +1,14 @@
 FactoryBot.define do
   factory :buisness do
-    uuid { "" }
+    uuid { SecureRandom.uuid }
     category { "MyString" }
     name { "MyString" }
     description { "MyString" }
-    primary_location_id { "" }
+    association :primary_location, factory: :business_location
     brand_identifier { "MyString" }
     metadata { "" }
-    created_by_user_id { "" }
-    updated_by_user_id { "" }
-    discarded_at { "2024-11-28 10:47:10" }
+    association :created_by_user, factory: :user
+    association :updated_by_user, factory: :user
+    discarded_at { nil }
   end
 end

@@ -1,29 +1,40 @@
 module Api
   module V1
     class BusinessesController < Api::BaseController
-      before_action :set_business, only: [ :show, :update, :destroy ]
-
       def index
-        @businesses = ::Business.all
-        render json: ::V1::BusinessResource.new(@businesses)
+        businesses = authorize!(::Business.all)
+        render json: ::V1::BusinessResource.new(businesses).serialize
       end
 
       def show
-        render json: ::V1::BusinessResource.new(@business)
+        business = authorize!(::Business.find_by!(uuid: params[:id]))
+        render json: ::V1::BusinessResource.new(business).serialize
       end
 
       def create
-        @business = ::Business.create!(business_params)
-        render json: ::V1::BusinessResource.new(@business), status: :created
+        business = authorize!(::Business.new(business_params))
+
+        if business.save
+          render json: ::V1::BusinessResource.new(business).serialize, status: :created
+        else
+          render json: { errors: business.errors }, status: :unprocessable_entity
+        end
       end
 
       def update
-        @business.update!(business_params)
-        render json: ::V1::BusinessResource.new(@business)
+        business = authorize!(::Business.find_by!(uuid: params[:id]))
+
+        if business.update(business_params)
+          render json: ::V1::BusinessResource.new(business).serialize
+        else
+          render json: { errors: business.errors }, status: :unprocessable_entity
+        end
       end
 
       def destroy
-        @business.destroy
+        business = authorize!(::Business.find_by!(uuid: params[:id]))
+        business.destroy
+
         head :no_content
       end
 
@@ -31,10 +42,6 @@ module Api
 
       def business_params
         params.require(:business).permit(:name)
-      end
-
-      def set_business
-        @business = ::Business.find_by(uuid: params[:id])
       end
     end
   end

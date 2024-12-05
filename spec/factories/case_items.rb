@@ -1,19 +1,19 @@
 FactoryBot.define do
   factory :case_item do
-    uuid { "" }
-    case_id { "" }
-    item_order { 1 }
+    uuid { SecureRandom.uuid }
+    association :case, factory: :case
+    sequence(:item_order, 1000) { |n| n }
     title { "MyString" }
     description { "MyString" }
-    metadata { "" }
+    metadata { {} }
     code { "MyString" }
-    source { "MyString" }
-    category { "MyString" }
-    quantity { "9.99" }
-    unit_of_measure { "MyString" }
-    unit_price { "9.99" }
-    created_by_user_id { "" }
-    updated_by_user_id { "" }
-    discarded_at { "2024-11-28 10:59:29" }
+    source { "case_manager:api" }
+    category { "labor" }
+    quantity { 1 }
+    unit_of_measure { "each" }
+    unit_price { 100 }
+    association :created_by_user, factory: :user
+    association :updated_by_user, factory: :user
+    discarded_at { nil }
   end
 end

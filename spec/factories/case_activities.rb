@@ -1,17 +1,17 @@
 FactoryBot.define do
   factory :case_activity do
-    uuid { "" }
-    case_id { "" }
-    title { "MyString" }
-    description { "MyString" }
-    category { "MyString" }
-    occurred_at { "2024-11-28 11:03:14" }
-    actor_user_id { "" }
-    target_user_id { "" }
-    audience_category { "MyString" }
-    metadata { "" }
-    created_by_user_id { "" }
-    updated_by_user_id { "" }
-    discarded_at { "2024-11-28 11:03:14" }
+    uuid { SecureRandom.uuid }
+    association :case, factory: :case
+    title { "Case Activity Title" }
+    description { "Case Activity Description" }
+    category { "note" }
+    occurred_at { Time.current }
+    association :actor_user, factory: :user
+    association :target_user, factory: :user
+    audience_category { "service_provider" }
+    metadata { {} }
+    association :created_by_user, factory: :user
+    association :updated_by_user, factory: :user
+    discarded_at { nil }
   end
 end

@@ -8,6 +8,8 @@ class SecurityRole < ApplicationRecord
   has_many :directly_assigned_users, through: :user_role_assignments, source: :user
 
   has_many :security_role_permissions
-  # has_many :security_permissions, through: :security_role_permissions
+  has_many :security_permissions, through: :security_role_permissions
+
   belongs_to :created_by_user, class_name: "User"
+  belongs_to :updated_by_user, class_name: "User"
 end

@@ -1,21 +1,21 @@
 FactoryBot.define do
   factory :case do
-    uuid { "" }
-    reference_number { "MyString" }
-    complaint { "MyString" }
-    asset_id { "" }
-    service_provider_business_location_id { "" }
-    ship_to_customer_id { "" }
-    bill_to_customer_id { "" }
-    assigned_to_user_id { "" }
-    source { "MyString" }
-    created_by_user_id { "" }
-    updated_by_user_id { "" }
-    estimated_complete_at { "2024-11-28 10:55:39" }
-    actual_completed_at { "2024-11-28 10:55:39" }
-    next_follow_up_at { "2024-11-28 10:55:39" }
-    checked_in_at { "2024-11-28 10:55:39" }
-    discarded_at { "2024-11-28 10:55:39" }
-    metadata { "" }
+    uuid { SecureRandom.uuid }
+    reference_number { Faker::Number.unique.number(digits: 6) }
+    complaint { "Broken Window" }
+    association :asset, factory: :asset
+    association :service_provider_business_location, factory: :business_location
+    association :ship_to_customer, factory: :customer
+    association :bill_to_customer, factory: :customer
+    association :assigned_to_user, factory: :user
+    source { "case_manager:api" }
+    association :created_by_user, factory: :user
+    association :updated_by_user, factory: :user
+    estimated_complete_at { Time.current }
+    actual_completed_at { Time.current }
+    next_follow_up_at { Time.current }
+    checked_in_at { Time.current }
+    discarded_at { nil }
+    metadata { {} }
   end
 end

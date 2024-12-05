@@ -352,6 +352,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   database_cleaner
+  database_cleaner-active_record
   debug
   factory_bot_rails
   faker
