@@ -2,7 +2,9 @@ module Api
   module V1
     class BusinessesController < Api::BaseController
       def index
-        businesses = authorize!(::Business.all)
+        Rails.logger.debug("User before authorize!: #{current_user.inspect}")
+        authorize! Business, to: :index?
+        businesses = Business.all
         render json: ::V1::BusinessResource.new(businesses).serialize
       end
 

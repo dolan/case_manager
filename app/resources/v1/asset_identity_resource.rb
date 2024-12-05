@@ -6,6 +6,6 @@ module V1
 
     attributes :uuid, :name, :description, :created_at, :updated_at
 
-    many :assets, resource: "V1::AssetResource"
+    many :assets, resource: "V1::AssetResource", id_attribute: :uuid
   end
 end

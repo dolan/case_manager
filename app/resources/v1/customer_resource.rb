@@ -6,6 +6,6 @@ module V1
 
     attributes :uuid, :name, :email, :created_at, :updated_at
 
-    # many :cases, id_method: :uuid
+    many :cases, resource: "V1::CaseResource", id_attribute: :uuid
   end
 end

@@ -6,10 +6,10 @@ module V1
 
     attributes :uuid, :status, :created_at, :updated_at
 
-    many :case_items
-    one :business, resource: "V1::BusinessResource"
-    one :bill_to_customer, resource: "V1::CustomerResource"
-    one :ship_to_customer, resource: "V1::CustomerResource"
+    many :case_items, resource: "V1::CaseItemResource", id_attribute: :uuid
+    one :business, resource: "V1::BusinessResource", id_attribute: :uuid
+    one :bill_to_customer, resource: "V1::CustomerResource", id_attribute: :uuid
+    one :ship_to_customer, resource: "V1::CustomerResource", id_attribute: :uuid
     one :assigned_user, resource: "V1::UserResource"
   end
 end
