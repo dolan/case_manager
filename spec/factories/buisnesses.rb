@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :buisness do
+  factory :business do
     uuid { SecureRandom.uuid }
     category { "MyString" }
     name { "MyString" }
