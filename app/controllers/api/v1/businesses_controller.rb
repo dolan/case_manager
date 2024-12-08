@@ -3,7 +3,7 @@ module Api
     class BusinessesController < Api::BaseController
       def index
         authorize! Business, to: :index?
-        businesses = Business.all
+        businesses = policy_scope(Business)
         render json: ::V1::BusinessResource.new(businesses).serialize
       end
 

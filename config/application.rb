@@ -15,6 +15,7 @@ require "action_cable/engine"
 
 # Add API authentication middleware
 require_relative "../app/middleware/api_authentication"
+require_relative "../app/middleware/account_context_middleware"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -44,5 +45,6 @@ module CaseManager
 
     # Add API authentication middleware
     config.middleware.use ApiAuthentication
+    config.middleware.use AccountContextMiddleware
   end
 end

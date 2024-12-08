@@ -19,13 +19,25 @@ class BusinessPolicy < ApplicationPolicy
     user.has_permission?(Constants::PERMISSIONS[:businesses][:delete])
   end
 
-   class Scope
-     def resolve
-       if user.has_permission?(Constants::PERMISSIONS[:businesses][:list])
-         scope.all
-       else
-         scope.none
-       end
-     end
-   end
+  # the scope is used to filter collections
+  class Scope
+    attr_reader :user, :scope
+
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
+
+    def resolve
+      if user.has_global_permission?(Constants::PERMISSIONS[:businesses][:list])
+        scope.all
+      else
+        scope.none
+      end
+    end
+
+    def visible_business_ids
+      user.has_global_permission?(Constants::Permissions[:assets][:read]) ? scope.pluck(:id) : []
+    end
+  end
 end

@@ -7,6 +7,14 @@ class ApplicationPolicy < ActionPolicy::Base
   #
   # Read more about authorization context: https://actionpolicy.evilmartians.io/#/authorization_context
 
+  # NOTE: a hint for claude:
+  # initialize the policy with the user and record
+  # def initialize(user, record)
+  #   super
+  #   @user = user
+  #   @record = record
+  # end
+
 
   private
 
