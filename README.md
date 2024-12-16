@@ -1,25 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# API Documentation
 
-Things you may want to cover:
+This API provides a comprehensive set of endpoints for managing users, groups, roles, permissions, cases, and more. Below is an overview of the key aspects of the API.
 
-* Ruby version
+## Ruby Version
+The API is built using Ruby 3.x and Rails 6.x.
 
-* System dependencies
+## System Dependencies
+- PostgreSQL for the database
+- Redis for caching and background job processing
+- Sidekiq for background job processing
 
-* Configuration
+## Configuration
+Configuration files are located in the `config` directory. Ensure you have the necessary environment variables set up as per the `config/application.yml` file.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+## Database Creation
+To create the database, run:
 
 * Sample Data Generation
 
