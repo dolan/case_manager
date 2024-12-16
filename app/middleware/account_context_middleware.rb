@@ -1,6 +1,11 @@
 class AccountContextMiddleware
-  def initialize(app)
+  def initialize(app, exclude_paths: [])
     @app = app
+    @exclude_paths = exclude_paths + [
+      "/health_check",
+      "/api/v1/login",
+      %r{^/api/admin/}
+    ]
   end
 
   def call(env)
@@ -29,6 +34,13 @@ class AccountContextMiddleware
   private
 
   def skip_account_check?(path)
-    [ "/health_check", "/api/v1/login" ].include?(path)
+    @exclude_paths.any? do |pattern|
+      case pattern
+      when String
+        pattern == path
+      when Regexp
+        pattern.match?(path)
+      end
+    end
   end
 end

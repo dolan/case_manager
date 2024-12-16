@@ -45,6 +45,10 @@ module CaseManager
 
     # Add API authentication middleware
     config.middleware.use ApiAuthentication
-    config.middleware.use AccountContextMiddleware
+    config.middleware.use AccountContextMiddleware,
+      exclude_paths: [
+        /^\/api\/v1\/public\/.*/,  # Example: skip all paths under /api/v1/public/
+        /^\/docs\/.*/              # Example: skip all documentation paths
+      ]
   end
 end

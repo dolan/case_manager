@@ -16,5 +16,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :businesses
     end
+
+    namespace :admin do
+      resources :users
+      resources :security_roles
+      resources :groups
+      resources :security_permissions, only: [ :index, :show ]
+    end
   end
 end

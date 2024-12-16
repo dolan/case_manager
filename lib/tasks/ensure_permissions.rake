@@ -22,6 +22,31 @@ module Tasks
             SecurityPermission.find_or_create_by!(name: permission_name)
           end
         end
+
+        admin_permissions = [
+          "admin:users:list",
+          "admin:users:read",
+          "admin:users:create",
+          "admin:users:update",
+          "admin:users:delete",
+          "admin:roles:list",
+          "admin:roles:read",
+          "admin:roles:create",
+          "admin:roles:update",
+          "admin:roles:delete",
+          "admin:groups:list",
+          "admin:groups:read",
+          "admin:groups:create",
+          "admin:groups:update",
+          "admin:groups:delete",
+          "admin:permissions:list",
+          "admin:permissions:assign"
+        ]
+
+        admin_permissions.each do |permission|
+          SecurityPermission.find_or_create_by!(name: permission)
+        end
+
         puts "All permissions have been ensured"
       end
     end
