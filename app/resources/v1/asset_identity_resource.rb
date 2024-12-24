@@ -4,7 +4,7 @@ module V1
 
     root_key :asset_identity
 
-    attributes :uuid, :name, :description, :created_at, :updated_at
+    attributes :uuid, :make, :model, :serial_number, :created_at, :updated_at
 
     many :assets, resource: "V1::AssetResource", id_attribute: :uuid
   end

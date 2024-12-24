@@ -19,13 +19,11 @@ class BusinessPolicy < ApplicationPolicy
     user.has_permission?(Constants::PERMISSIONS[:businesses][:delete])
   end
 
-   class Scope
-     def resolve
-       if user.has_permission?(Constants::PERMISSIONS[:businesses][:list])
-         scope.all
-       else
-         scope.none
-       end
-     end
-   end
+  relation_scope do |scope|
+    if user.has_permission?(Constants::PERMISSIONS[:businesses][:list])
+      scope
+    else
+      scope.none
+    end
+  end
 end
