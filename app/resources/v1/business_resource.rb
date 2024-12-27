@@ -6,6 +6,6 @@ module V1
 
     attributes :uuid, :name, :created_at, :updated_at
 
-    # many :business_locations, resource: "V1::BusinessLocationResource", id_attribute: :uuid
+    many :business_locations, resource: "V1::BusinessLocationResource", id_attribute: :uuid
   end
 end
